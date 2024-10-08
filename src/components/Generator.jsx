@@ -1,5 +1,10 @@
 import { SectionWrapper } from "./SectionWrapper";
 
 export function Generator() {
-  return <SectionWrapper>asdfasdf</SectionWrapper>;
+  return (
+    <SectionWrapper
+      header={"generate your workout"}
+      title={["It's", "Huge", "o'clock"]}
+    ></SectionWrapper>
+  );
 }
