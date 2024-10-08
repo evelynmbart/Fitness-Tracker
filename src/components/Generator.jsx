@@ -1,6 +1,7 @@
 import { SectionWrapper } from "./SectionWrapper";
 import { SCHEMES, WORKOUTS } from "../utils/swolder";
 import { useState } from "react";
+import { Button } from "./Button";
 
 function Header({ index, title, description }) {
   return (
@@ -27,6 +28,25 @@ export function Generator() {
     setShowModal(!showModal);
   };
 
+  const updateMuscles = (muscleGroup) => {
+    if (muscles.includes(muscleGroup)) {
+      setMuscles(muscles.filter((val) => val !== muscleGroup));
+      return;
+    }
+    if (muscles.length > 2) {
+      return;
+    }
+    if (poison !== "individual") {
+      setMuscles([muscleGroup]);
+      setShowModal(false);
+      return;
+    }
+    setMuscles([...muscles, muscleGroup]);
+    if (muscles.length === 2) {
+      setShowModal(false);
+    }
+  };
+
   return (
     <SectionWrapper
       header={"generate your workout"}
@@ -42,7 +62,9 @@ export function Generator() {
           return (
             <button
               onClick={() => {
-                setPoison(type);
+                {
+                  setPoison(type);
+                }
               }}
               className={
                 "bg-slate-950 border duration-200 hover:border-blue-600 py-3 rounded-lg " +
@@ -65,10 +87,36 @@ export function Generator() {
           onClick={toggleModal}
           className="relative flex p-3 items-center justify-center"
         >
-          <p>Select muscle groups</p>
+          <p className="capitalize">
+            {muscles.length == 0 ? "Select muscle groups" : muscles.join(" ")}
+          </p>
           <i className="fa-solid absolute right-3 top-1/2 -translate-y-1/2 fa-caret-down"></i>
         </button>
-        {showModal && <div className="flex flex-col p-3">{}</div>}
+        {showModal && (
+          <div className="flex flex-col p-3">
+            {(poison === "individual"
+              ? WORKOUTS[poison]
+              : Object.keys(WORKOUTS[poison])
+            ).map((muscleGroup, muscleGroupIndex) => {
+              return (
+                <button
+                  onClick={() => {
+                    updateMuscles(muscleGroup);
+                  }}
+                  key={muscleGroupIndex}
+                  className={
+                    "hover:text-blue-400 duration-200 " +
+                    (muscles.includes(muscleGroup) ? " text-blue-400" : " ")
+                  }
+                >
+                  <p className="uppercase">
+                    {muscleGroup.replaceAll("_", " ")}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
       <Header
         index={"03"}
@@ -93,6 +141,7 @@ export function Generator() {
           );
         })}
       </div>
+      <Button text={"Formulate"}></Button>
     </SectionWrapper>
   );
 }
