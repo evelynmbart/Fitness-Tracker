@@ -1,3 +1,5 @@
+import { SectionWrapper } from "./SectionWrapper";
+
 export function Generator() {
-  return <div>Generator</div>;
+  return <SectionWrapper>asdfasdf</SectionWrapper>;
 }

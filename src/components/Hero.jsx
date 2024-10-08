@@ -8,11 +8,11 @@ export function Hero() {
         </h1>
       </div>
       <p className="textsm md:text-base font-light">
-        I hereby acknowledge that I may risk becoming
+        I hereby acknowledge that I may risk becoming{" "}
         <span className="text-blue-400 font-medium">
-          unbelievably swolenromous
+          unbelievably swolenromous{" "}
         </span>
-        and accept all risks of becoming the local
+        and accept all risks of becoming the local{" "}
         <span className="text-blue-400 font-medium">mass monstrosity</span>,
         afflicted with severe body dismorphia, unable to fit through doors.
       </p>
