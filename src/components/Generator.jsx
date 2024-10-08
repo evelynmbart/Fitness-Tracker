@@ -18,11 +18,17 @@ function Header({ index, title, description }) {
   );
 }
 
-export function Generator() {
+export function Generator({
+  poison,
+  setPoison,
+  muscles,
+  setMuscles,
+  goal,
+  setGoal,
+  updateWorkout,
+  generate,
+}) {
   const [showModal, setShowModal] = useState(false);
-  const [poison, setPoison] = useState("individual");
-  const [muscles, setMuscles] = useState([]);
-  const [goal, setGoal] = useState("strength_power");
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -49,6 +55,7 @@ export function Generator() {
 
   return (
     <SectionWrapper
+      id={"generate"}
       header={"generate your workout"}
       title={["It's", "Huge", "o'clock"]}
     >
@@ -63,11 +70,12 @@ export function Generator() {
             <button
               onClick={() => {
                 {
+                  setMuscles([]);
                   setPoison(type);
                 }
               }}
               className={
-                "bg-slate-950 border duration-200 hover:border-blue-600 py-3 rounded-lg " +
+                "bg-slate-950 border duration-200 px-4 hover:border-blue-600 py-3 rounded-lg " +
                 (type === poison ? "border-blue-600" : "border-blue-400 ")
               }
               key={typeIndex}
@@ -123,7 +131,7 @@ export function Generator() {
         title={"Become Juggernaut"}
         description={"Select your ultimate objective."}
       />
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {Object.keys(SCHEMES).map((scheme, schemeIndex) => {
           return (
             <button
@@ -131,7 +139,7 @@ export function Generator() {
                 setGoal(scheme);
               }}
               className={
-                "bg-slate-950 border duration-200 hover:border-blue-600 py-3 rounded-lg " +
+                "bg-slate-950 border duration-200 hover:border-blue-600 py-3 rounded-lg px-4 " +
                 (scheme === goal ? "border-blue-600" : "border-blue-400 ")
               }
               key={schemeIndex}
@@ -141,7 +149,7 @@ export function Generator() {
           );
         })}
       </div>
-      <Button text={"Formulate"}></Button>
+      <Button func={updateWorkout} text={"Formulate"}></Button>
     </SectionWrapper>
   );
 }
